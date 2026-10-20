@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tee Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; height: 100%; background: #0d1a14; overflow: hidden; }
+  body { display: flex; align-items: center; justify-content: center; }
+  #wrap { position: relative; }
+  canvas { image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+  #gl { position: absolute; left: 0; top: 0; }
+  #game { position: relative; cursor: pointer; }
+</style>
+</head>
+<body>
+<div id="wrap">
+<canvas id="gl" width="480" height="270"></canvas>
+<canvas id="game" width="960" height="540"></canvas>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script>
+  // Load the game scripts in order with a fresh timestamp so the browser never runs an old cached copy.
+  (function () {
+    const files = ['js/core/engine.js', 'js/core/save.js', 'js/core/keys.js', 'js/core/audio.js', 'js/core/net.js', 'js/core/ui.js', 'js/gfx/sprites.js', 'js/gfx/renderer3d.js', 'js/gfx/golfer3d.js', 'js/gfx/cart3d.js', 'js/gfx/fx3d.js', 'js/gfx/portrait.js', 'js/gfx/coursedetail.js', 'js/gfx/themes.js', 'js/gfx/countryside.js', 'js/game/clubs.js', 'js/game/catalog.js', 'js/game/caddy.js', 'js/game/holegen.js', 'js/game/holerender.js', 'js/game/terrain.js', 'js/game/courses.js', 'js/game/physics.js', 'js/game/swingmeter.js', 'js/game/round.js', 'js/game/career.js', 'js/game/powerups.js', 'js/game/bevcart.js', 'js/scenes/home.js', 'js/scenes/modes.js', 'js/scenes/career.js', 'js/scenes/architect.js', 'js/scenes/settings.js', 'js/scenes/shop.js', 'js/scenes/play.js', 'js/scenes/scorecard.js', 'js/scenes/mpsetup.js', 'js/scenes/online.js', 'js/main.js'], v = Date.now();
+    (function next(i) {
+      if (i >= files.length) return;
+      const s = document.createElement('script');
+      s.src = files[i] + '?v=' + v;
+      s.onload = () => next(i + 1);
+      document.body.appendChild(s);
+    })(0);
+  })();
+</script>
+</body>
+</html>
